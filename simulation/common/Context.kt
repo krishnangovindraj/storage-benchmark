@@ -18,6 +18,7 @@ package com.vaticle.typedb.benchmarks.storage.common
 
 import com.vaticle.typedb.simulation.common.Partition
 import mu.KotlinLogging
+import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicLong
 
 class Context private constructor(config: Config, isTracing: Boolean, isReporting: Boolean):
@@ -37,7 +38,7 @@ class Context private constructor(config: Config, isTracing: Boolean, isReportin
         val partitionId: Int
     ) : Partition {
 
-        val idCtr : AtomicLong = AtomicLong()
+        val idCtr : AtomicInteger = AtomicInteger()
         override val code: String
             get() = "code-" + partitionId
         override val group: String

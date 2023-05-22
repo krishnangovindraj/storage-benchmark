@@ -21,14 +21,16 @@ import com.vaticle.typedb.benchmarks.storage.common.Util.int
 import com.vaticle.typedb.benchmarks.storage.common.Util.map
 import com.vaticle.typedb.common.yaml.YAML
 
-class ModelParams private constructor(val personPerBatch: Int) {
+class ModelParams private constructor(val personPerBatch: Int, val friendshipPerBatch: Int) {
 
     companion object {
-        private const val PERSON_PER_BATCH = "personPerIteration"
+        private const val PERSON_PER_ITER = "personPerIteration"
+        private const val FRIENDSHIP_PER_ITER = "friendshipPerIteration"
 
         fun of(yaml: YAML.Map): ModelParams {
-            val nPersonPerBatch = int(map(yaml["model"])[PERSON_PER_BATCH])
-            return ModelParams(nPersonPerBatch)
+            val nPersonPerBatch = int(map(yaml["model"])[PERSON_PER_ITER])
+            val friendshipPerBatch = int(map(yaml["model"])[FRIENDSHIP_PER_ITER])
+            return ModelParams(nPersonPerBatch, friendshipPerBatch)
         }
     }
 }

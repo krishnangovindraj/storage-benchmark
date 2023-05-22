@@ -22,6 +22,10 @@ agents:
     runsPerIteration: 100
     trace: true
 
+  - name: "PersonAgent"
+    action: "createFriendship"
+    runsPerIteration: 100
+    trace: true
 
 traceSampling:
   # Options: `"every"` for every K traces; `"log"` for logarithm with base N
@@ -30,10 +34,11 @@ traceSampling:
 
 run:
   randomSeed: 1
-  iterations: 1
-  partitions: 10
+  iterations: 20
+  partitions: 64
   databaseName: "storage-benchmark-writes"
   recreateDatabase: true
 
 model:
-  personPerIteration: 100
+  personPerIteration: 1000
+  friendshipPerIteration: 1000

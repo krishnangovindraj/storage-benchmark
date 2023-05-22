@@ -17,3 +17,6 @@
 define
 name sub attribute, value string;
 person sub entity, owns name;
+
+friendship sub relation, relates person;
+person plays friendship:person;

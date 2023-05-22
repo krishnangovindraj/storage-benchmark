@@ -31,8 +31,8 @@ public class PersonAgent(client: TypeDBClient, context: Context) :
     override val agentClass = PersonAgent::class.java
     override val partitions = context.partitions
 
-    private fun nextName(dbPartition: Context.DBPartition): String {
-        return "name" + dbPartition.partitionId + ":" + dbPartition.idCtr.addAndGet(1L)
+    private fun nameFrom(partitionId: Int, id: Int): String {
+        return "name" + partitionId + ":" + id
     }
 
     fun createPerson(
@@ -42,7 +42,30 @@ public class PersonAgent(client: TypeDBClient, context: Context) :
     ): List<Agent.Report> {
         session.transaction(TypeDBTransaction.Type.WRITE).use { tx ->
             for (i in 1..context.model.personPerBatch) {
-                tx.query().insert(TypeQL.insert(TypeQL.`var`("x").isa("person").has("name", nextName(dbPartition))))
+                val name : String = nameFrom(dbPartition.partitionId, dbPartition.idCtr.addAndGet(1))
+                tx.query().insert(TypeQL.insert(
+                    TypeQL.`var`("p").isa("person").has("name", name)))
+            }
+            tx.commit()
+        }
+        return listOf()
+    }
+
+    fun createFriendship(
+        session: TypeDBSession,
+        dbPartition: Context.DBPartition,
+        randomSource: RandomSource
+    ): List<Agent.Report> {
+        session.transaction(TypeDBTransaction.Type.WRITE).use { tx ->
+            for (i in 1..context.model.friendshipPerBatch) {
+                val first : String = nameFrom(dbPartition.partitionId, randomSource.nextInt(dbPartition.idCtr.get()))
+                val second : String = nameFrom(dbPartition.partitionId, randomSource.nextInt(dbPartition.idCtr.get()))
+                tx.query().insert(TypeQL.match(
+                    TypeQL.`var`("p1").isa("person").has("name", first),
+                    TypeQL.`var`("p2").isa("person").has("name", second),
+                    ).insert(
+                        TypeQL.rel("person","p1").rel("person","p1").isa("friendship")
+                    ))
             }
             tx.commit()
         }
@@ -50,6 +73,7 @@ public class PersonAgent(client: TypeDBClient, context: Context) :
     }
 
     override val actionHandlers = mapOf(
-        "createPerson" to ::createPerson
+        "createPerson" to ::createPerson,
+        "createFriendship" to ::createFriendship
     )
 }
