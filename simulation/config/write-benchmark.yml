@@ -19,7 +19,7 @@ agents:
 
   - name: "PersonAgent"
     action: "createPerson"
-    runsPerIteration: 1
+    runsPerIteration: 100
     trace: true
 
 
@@ -31,9 +31,9 @@ traceSampling:
 run:
   randomSeed: 1
   iterations: 1
-  partitions: 1
+  partitions: 10
   databaseName: "storage-benchmark-writes"
   recreateDatabase: true
 
 model:
-  nPerson: 100
+  personPerIteration: 100

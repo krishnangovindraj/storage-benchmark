@@ -27,7 +27,7 @@ class Context private constructor(config: Config, isTracing: Boolean, isReportin
 
     private fun createPartitionList(nPartition: Int): List<DBPartition> {
         val pList : ArrayList<DBPartition> = ArrayList(nPartition);
-        for (i: Int in 0..nPartition) {
+        for (i: Int in 0..nPartition-1) {
             pList.add(DBPartition(i));
         }
         return pList;

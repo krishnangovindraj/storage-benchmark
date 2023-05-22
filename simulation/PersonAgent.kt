@@ -24,7 +24,6 @@ import com.vaticle.typedb.simulation.common.seed.RandomSource
 import com.vaticle.typedb.simulation.typedb.TypeDBClient
 
 import com.vaticle.typeql.lang.TypeQL
-import java.util.concurrent.atomic.AtomicLong
 
 public class PersonAgent(client: TypeDBClient, context: Context) :
     Agent<Context.DBPartition, TypeDBSession, Context>(client, context) {
@@ -33,7 +32,7 @@ public class PersonAgent(client: TypeDBClient, context: Context) :
     override val partitions = context.partitions
 
     private fun nextName(dbPartition: Context.DBPartition): String {
-        return "name" + dbPartition.idCtr.addAndGet(1L)
+        return "name" + dbPartition.partitionId + ":" + dbPartition.idCtr.addAndGet(1L)
     }
 
     fun createPerson(
@@ -42,7 +41,9 @@ public class PersonAgent(client: TypeDBClient, context: Context) :
         randomSource: RandomSource
     ): List<Agent.Report> {
         session.transaction(TypeDBTransaction.Type.WRITE).use { tx ->
-            tx.query().insert(TypeQL.insert(TypeQL.`var`("x").isa("person").has("name", nextName(dbPartition))))
+            for (i in 1..context.model.personPerBatch) {
+                tx.query().insert(TypeQL.insert(TypeQL.`var`("x").isa("person").has("name", nextName(dbPartition))))
+            }
             tx.commit()
         }
         return listOf()
