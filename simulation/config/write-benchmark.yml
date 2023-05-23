@@ -34,11 +34,11 @@ traceSampling:
 
 run:
   randomSeed: 1
-  iterations: 20
-  partitions: 64
+  iterations: 100
+  partitions: 16
   databaseName: "storage-benchmark-writes"
   recreateDatabase: true
 
 model:
-  personPerIteration: 1000
-  friendshipPerIteration: 1000
+  personPerIteration: 100
+  friendshipPerIteration: 100

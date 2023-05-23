@@ -16,7 +16,16 @@
 #
 define
 name sub attribute, value string;
-person sub entity, owns name;
+address sub attribute, value string;
+ssid sub attribute, value long;
+meeting-time sub attribute, value datetime;
 
-friendship sub relation, relates person;
+person sub entity,
+    owns name,
+    owns address,
+    owns ssid;
+
+friendship sub relation,
+    relates person,
+    owns meeting-time;
 person plays friendship:person;
