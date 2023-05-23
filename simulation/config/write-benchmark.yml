@@ -20,12 +20,12 @@ agents:
   - name: "PersonAgent"
     action: "createPerson"
     runsPerIteration: 100
-    trace: true
+    trace: false
 
   - name: "PersonAgent"
     action: "createFriendship"
     runsPerIteration: 100
-    trace: true
+    trace: false
 
 traceSampling:
   # Options: `"every"` for every K traces; `"log"` for logarithm with base N
