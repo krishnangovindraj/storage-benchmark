@@ -39,7 +39,7 @@ agents:
 
   - name: "PersonAgent"
     action: "readFriendsOfFriends"
-    runsPerIteration: 10
+    runsPerIteration: 100
     trace: false
 
   - name: "PersonAgent"
