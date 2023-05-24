@@ -26,9 +26,9 @@ kt_jvm_library(
         "//simulation/common",
 
         # External Vaticle Dependencies
-        "@vaticle_typedb_simulation//:typedb_simulation",
-        "@vaticle_typedb_simulation//typedb:typedb",
-        "@vaticle_typedb_simulation//common",
+        "@vaticle_typedb_simulation//simulation:typedb_simulation",
+        "@vaticle_typedb_simulation//simulation/typedb:typedb",
+        "@vaticle_typedb_simulation//simulation/common:common",
         "@vaticle_typeql//java:typeql-lang",
         "@vaticle_typeql//java/pattern",
         "@vaticle_typeql//java/query",

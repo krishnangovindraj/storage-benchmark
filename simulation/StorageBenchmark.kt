@@ -26,18 +26,18 @@ import com.vaticle.typedb.simulation.typedb.TypeDBClient
 import mu.KotlinLogging
 import java.nio.file.Paths
 
-class StorageBenchmark internal constructor(client: TypeDBClient, context: Context):
+class StorageBenchmark internal constructor(client: TypeDBClient, context: Context) :
     com.vaticle.typedb.simulation.typedb.TypeDBSimulation<Context>(client, context, AgentFactory(client, context)) {
 
     private val LOGGER = KotlinLogging.logger {}
     override val agentPackage = PersonAgent::class.java.packageName
     override val name = "StorageBenchmark"
+
     // TODO: Update this filepath
     override val schemaFiles = listOf(Paths.get("schema.tql").toFile())
     private val options = TypeDBOptions.core().infer(true)
 
     override fun initData(nativeSession: TypeDBSession, randomSource: RandomSource) {
-        LOGGER.info("TypeDB initialisation of world simulation data started ...")
+        LOGGER.info("Nothing to initialise")
     }
-
 }

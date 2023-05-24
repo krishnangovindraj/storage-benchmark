@@ -24,6 +24,7 @@ filegroup(
     srcs = [
         "logback.xml",
         "write-benchmark.yml",
+        "read-write-benchmark.yml",
     ],
 )
 
