@@ -54,12 +54,12 @@ traceSampling:
 
 run:
   randomSeed: 1
-  iterations: 1000
+  iterations: 100
   partitions: 16
   databaseName: "storage-benchmark-read-writes"
   recreateDatabase: true
 
 model:
-  personPerIteration: 10
-  friendshipPerIteration: 50
+  personPerIteration: 100
+  friendshipPerIteration: 500
   postCodes: 97
