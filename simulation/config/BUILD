@@ -25,7 +25,7 @@ filegroup(
         "logback.xml",
         "write-benchmark.yml",
         "read-write-benchmark.yml",
-        "large-data-test.yml"
+        "large-data-benchmark.yml"
     ],
 )
 

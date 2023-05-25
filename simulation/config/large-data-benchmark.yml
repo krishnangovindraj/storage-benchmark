@@ -49,7 +49,7 @@ traceSampling:
 
 run:
   randomSeed: 1
-  iterations: 2000
+  iterations: 2500
   partitions: 16
   databaseName: "storage-benchmark-large-data"
   recreateDatabase: true
